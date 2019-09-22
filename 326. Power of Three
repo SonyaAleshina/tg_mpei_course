@@ -1,0 +1,17 @@
+//https://leetcode.com/problems/power-of-three/
+
+class Solution {
+public:
+    bool isPowerOfThree(int n) {
+        bool fl; 
+        double x; 
+        
+        if (n <= 0) fl=false; 
+        else { 
+              x = log10(n)/log10(3);
+              if ((x-floor(x)) > 0.000000) fl = false;
+               else fl = true;       
+        }
+        return fl; 
+    }
+};
