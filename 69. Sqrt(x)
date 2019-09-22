@@ -1,0 +1,15 @@
+//https://leetcode.com/problems/sqrtx/
+
+class Solution {
+public:
+    int mySqrt(int x) {
+        double y; 
+         int root; 
+
+        if (x == 0) y = 0; 
+          else y = exp(log(x)/2); 
+        root = lrint(y); 
+        if (root>y&&(root-y)>=0.000001) root-=1;
+        return root; 
+    }
+};
