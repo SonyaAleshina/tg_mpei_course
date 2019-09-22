@@ -1,0 +1,18 @@
+//https://leetcode.com/problems/hamming-distance/
+
+class Solution {
+public:
+    int hammingDistance(int x, int y) {
+     int z,k; 
+        
+         z = x^y; //единицы будут только там, где не совпадают 
+         k = 0; 
+        
+       while (z>0) 
+       {
+           k+=z&1; 
+           z>>=1;
+       }
+         return k;
+    }
+};
