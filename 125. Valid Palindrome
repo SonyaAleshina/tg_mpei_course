@@ -1,0 +1,46 @@
+//https://leetcode.com/problems/valid-palindrome/
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        int i,j,n,m; 
+        string str; 
+        char *x; 
+        bool fl; 
+        
+        n=s.length(); 
+        
+        x=new char[n+1]; 
+        
+        x[n]='\0';
+        for(i=0;i<n;i++)
+            x[i]='|'; 
+        
+        j=0; 
+        
+        for(i=0;i<n;i++)
+            if ((s[i]>='0'&&s[i]<='9')||(s[i]>='A'&&s[i]<='Z')||(s[i]>='a'&&s[i]<='z')) 
+                                 {if (s[i]>='A'&&s[i]<='Z') x[j]=s[i]+32;
+                                   else x[j]=s[i];
+                                  j++;}; 
+        
+        str=x; 
+
+        i=0; 
+        while(str[i]!='|'&&i<n) i++; 
+        if (str[i]=='|') while (str[i]=='|') str.erase(i,1); 
+        
+        m=str.length(); 
+        
+        fl=true; j=m-1; i=0; 
+        
+        if (m%2==0) {m/=2; 
+                    while (i<m&&fl==true) {if (str[i]==str[j]) {i++; 
+                                                              j--;}
+                                            else fl=false; }}
+         else {while (i!=j&&fl==true) {if (str[i]==str[j]) {i++; 
+                                                            j--;}
+                                        else fl=false; }};
+        return fl; 
+                    
+    }
+};
