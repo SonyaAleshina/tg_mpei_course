@@ -1,0 +1,75 @@
+//https://leetcode.com/problems/valid-parentheses/
+class Solution {
+public:
+            int Prov(int &i, char *x, bool fl, int n)
+        { bool t;
+          if (x[i]=='(') {i++;
+                          while (x[i]==' ') i++; 
+                          if (x[i]==')') i++;
+                           else {if (x[i]=='}'||x[i]==']'||i==n) fl=false; 
+                             else {t = false; 
+                                 fl = Prov(i,x,fl,n);
+                                   if (i>=n) fl = false; 
+                                   else {
+                                 while (t==false&&i<n&&fl == true) {printf("%c",x[i]); 
+                                   if (x[i]==')') {t=true;i++;} 
+                                   else {
+                                  if (fl==true&&i>=n-1&&x[i]!=')') {fl = false; i++;}
+                                                          /* else fl = false;*/
+                                    else fl=Prov(i,x,fl,n);}}}}}}
+               else {if (x[i]=='[') {i++;
+                                     while (x[i]==' ') i++; 
+                                     if (x[i]==']') i++;
+                                       else {if (x[i]=='}'||x[i]==')'||i==n) fl=false; 
+                                             else {t = false; 
+                                                   fl = Prov(i,x,fl,n);
+                                                   if (i>=n) fl = false; 
+                                                   else{
+                                                   while (t==false&&i<n&&fl == true) {
+                                                   if (x[i]==']') {t=true;i++;} 
+                                                   else{
+                                                  if (fl==true&&i>=n-1&&x[i]!=']') {fl = false; i++;}
+                                                   else fl=Prov(i,x,fl,n);}}}}}}
+                     else {if (x[i]=='{') {i++;
+                                          while (x[i]==' ') i++; 
+                                         if (x[i]=='}') i++;
+                                        else {if (x[i]==')'||x[i]==']'||i==n) fl=false; 
+                                                     else {t=false; 
+                                                         fl = Prov(i,x,fl,n);
+                                                           if (i>=n) fl = false; 
+                                                           else {
+                                                  while (t==false&&i<n&&fl == true) {
+                                                 if (x[i]=='}') {t=true;i++;} 
+                                                           else {
+                                                if (fl==true&&i>=n-1&&x[i]!='}') {fl = false; i++;} 
+                                                  else fl=Prov(i,x,fl,n);}}}}}}
+                         
+                             else fl=false;};};
+                
+            return fl;
+        }
+    bool isValid(string s) {
+        int n,i,k; 
+        char *x;
+        bool fl; 
+        
+        n = s.length(); 
+        x = new char[n+1]; 
+        strcpy(x,s.c_str()); 
+        
+        for(i=0;i<n;i++)
+           if (x[i]==' ') k++;     
+            
+        if (k==n) return true;
+        else {   
+        fl = true; i=0; 
+        
+        while (i<n&&fl==true){
+        while (x[i]==' ') i++; 
+           if (x[i]==')'||x[i]=='}'||x[i]==']') fl=false; 
+             else  fl = Prov(i,x,fl,n); printf("%d",i); //if (i==n-1) i++;
+        };
+                return fl; };
+           
+        };  
+    };
