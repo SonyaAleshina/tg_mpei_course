@@ -1,0 +1,36 @@
+//https://leetcode.com/problems/defanging-an-ip-address/
+class Solution {
+public:
+    string defangIPaddr(string address) {
+      int n,i,k,j,m; 
+      char *x; 
+      string s; 
+        
+        k=0; 
+        n=address.length(); 
+        for(i=0; i<n; i++) 
+            if (address[i]=='.') k++;
+        
+        m=n+1+2*k;
+        
+        x = new char[m];
+        
+        x[m-1]='\0'; j=0; printf("%d",m); 
+        
+        for (i=0; i<n;i++) 
+        {
+            if (address[i]!='.') {x[j]=address[i];
+                                  j++;}
+              else {x[j]='['; 
+                    j++;
+                    x[j]=address[i]; 
+                    j++; 
+                    x[j]=']';
+                    j++;}
+        }; 
+        
+       s=x; 
+        
+        return s; 
+    }
+};
