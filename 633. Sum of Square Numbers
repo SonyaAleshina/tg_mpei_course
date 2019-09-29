@@ -1,0 +1,19 @@
+//https://leetcode.com/problems/sum-of-square-numbers/
+class Solution {
+public:
+    bool judgeSquareSum(int c) {
+        long int a,i,b; 
+        bool fl; 
+        
+        if (c==0) fl=true; 
+        else {
+        fl=false;  i=1;
+        while (fl==false&&i<=lrint(sqrt(c))) {
+            a=i; 
+            b=floor(sqrt(c-a*a)); 
+            if (sqrt(c-a*a)-b==0.000000) fl=true; 
+              else i++;};
+        };
+        return fl;
+    }
+};
