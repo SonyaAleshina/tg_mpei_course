@@ -1,0 +1,36 @@
+//https://leetcode.com/problems/first-unique-character-in-a-string/
+class Solution {
+public:
+    int firstUniqChar(string s) {
+        int i,n,j,k;
+        bool fl; 
+        char c; 
+        
+        n=s.length(); 
+        i=0; fl=false; k=-1; 
+        
+        
+        while (i<n-1) 
+        {
+            if (s[i]>='a'&&s[i]<='z') {
+                                        c=s[i]; j=i+1; 
+                                        while (j<n)
+                                            {if (s[j]==c) {s[i]='0';
+                                                           s[j]='0';
+                                                            };
+                                             j++;};
+                                      };
+             i++; 
+        };
+        
+        i=0; 
+        
+        while (fl==false&&i<n)
+            if (s[i]!='0') {fl=true;
+                            k=i;}
+              else i++; 
+        
+        return k;
+          
+    }
+};
