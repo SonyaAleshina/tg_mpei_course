@@ -1,0 +1,32 @@
+//https://leetcode.com/problems/implement-strstr/
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int i,n,m,k,j; 
+        bool fl;
+        
+        n=haystack.length(); 
+        m=needle.length();
+        fl=false; 
+        
+        if (n<m) return (-1); 
+        else {
+        if (m==0) return 0; 
+        else {
+        
+        i=0; k=-1;
+        
+        while (i<n&&fl==false)
+        {
+            if (haystack[i]==needle[0]) {fl=true; k=i; i++; j=1; 
+                                         while(j<m&&fl==true) {if (haystack[i]==needle[j])                                                                                 {i++;j++;}
+                                                                else fl=false;};
+                                         if (fl==false) i=k+1; }
+             
+              else i++; 
+        };
+            if (fl==false) k=-1; 
+            return k; }}
+            
+    }
+};
