@@ -1,0 +1,59 @@
+//https://leetcode.com/problems/buddy-strings/
+class Solution {
+public:
+    bool buddyStrings(string A, string B) {
+        int na,i,k,t,j,nb; 
+        char *ax,*bx,*by; 
+        bool fl,f; 
+        
+        na = A.length();  
+        nb = B.length();  
+        
+        ax = new char[na+1];
+        bx = new char[nb+1]; 
+        by = new char[nb+1]; 
+        
+        strcpy(ax,A.c_str()); 
+        strcpy(bx,B.c_str()); 
+        strcpy(by,B.c_str()); 
+        
+        if (na==nb){
+            f=true; j=0; 
+            while (f==true&&j<na) 
+            {
+                i=0; f=false;
+                while(f==false&&i<na){
+                    if (ax[j]==by[i])
+                    {by[i]='0';
+                     f=true;}
+                     else i++; };
+                j++;
+            };};
+        printf("%d\n",f);
+
+        if (na!=nb||f==false) fl=false;
+        else {
+        
+        i=0; k=0; t=0;
+        while (k<=2&&i<na) 
+        {
+            if (ax[i]!=bx[i]) k+=1; 
+            j=i+1;
+            if (t==0) 
+                while (t==0&&j<na)  {
+                    if (ax[i]==ax[j]) t=1;
+                    j++;}; 
+            
+            i++; 
+        }; 
+        
+        if (A==B&&t==1) fl=true;
+        else {
+        if (k==2&&na>2||(k==0&&na==2&&t==1)||(k==2&&na==2)) fl = true; 
+                 else fl = false;};
+        
+       }
+        
+        return fl; 
+    }
+};
