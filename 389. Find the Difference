@@ -1,0 +1,19 @@
+//https://leetcode.com/problems/find-the-difference/
+class Solution {
+public:
+    char findTheDifference(string s, string t) {
+        char c; 
+        int i,n; 
+        
+        n=t.length(); 
+        
+        if(n==1) return t[0]; 
+        else {
+        c=t[n-1]; 
+        
+        for(i=0;i<n-1;i++)
+            c^=s[i]^t[i]; 
+        
+        return c; };
+    }
+};
