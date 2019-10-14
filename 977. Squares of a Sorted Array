@@ -1,0 +1,25 @@
+//https://leetcode.com/problems/squares-of-a-sorted-array/
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& A) {
+        int n,i,j,l,last,first; 
+        
+        n=A.size();
+        
+        vector<int> arr(n); 
+        
+        i=0;j=n-1; l=n-1;
+        
+        while(i<=j) 
+        {
+        first=abs(A[i]); last=abs(A[j]); 
+        if (first<=last) {arr[l]=last*last; 
+                         j--;}
+            else {arr[l]=first*first;
+                  i++;};
+        l--; 
+        };
+        
+        return arr; 
+    }
+};
