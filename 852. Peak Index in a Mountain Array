@@ -1,0 +1,24 @@
+//https://leetcode.com/problems/peak-index-in-a-mountain-array/
+class Solution {
+public:
+void Poisk(vector<int>& mas, int l, int r, int &k)
+{   
+    if (l!=r) 
+    {int sr=(l+r)/2; printf("%d",sr);
+    if (sr!=0) //&&sr!=mas.size()-1)
+    {if (mas[sr-1]<mas[sr]&&mas[sr]>mas[sr+1]) k = sr;
+      else {if (mas[sr-1]<mas[sr])  Poisk(mas,sr,r,k); 
+               else Poisk(mas,l,sr,k); }}
+    };
+}
+    int peakIndexInMountainArray(vector<int>& A) {
+        int x,j,i,n;
+        
+        n=A.size(); 
+        i=0; j=n-1; 
+        x=0; 
+        Poisk(A,i,j,x); 
+        
+        return x;
+    }
+};
