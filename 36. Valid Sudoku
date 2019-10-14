@@ -1,0 +1,103 @@
+//https://leetcode.com/problems/valid-sudoku/
+class Solution {
+public:
+    
+bool Square(int a, int b, vector<vector<char>>& x)
+{
+    vector <int> arr(1); 
+    bool fl=true; 
+    int i,j,k; 
+    
+    k=0;
+    for(i=a;i<a+3;i++)
+        for (j=b; j<b+3; j++)
+        {if (x[i][j]!='.') {if (k==0) arr[0]=x[i][j];
+                              else arr.push_back(x[i][j]); k++;}};
+    
+    i=0; 
+    while (i<k-1&&fl==true)
+    {
+        j=i+1; 
+        while (j<k&&fl==true)
+            if (arr[i]==arr[j]) fl=false; 
+                else j++; 
+        i++; 
+    }; 
+    return fl;                
+}
+    
+bool Line(int a, vector<vector<char>>& x)
+{
+    int i,k,j; 
+    bool fl; 
+    vector <int> arr(1); 
+    
+    fl=true; k=0;
+    
+    for(i=0;i<9;i++)
+        {if (x[a][i]!='.') {if (k==0) arr[0]=x[a][i];
+                             else arr.push_back(x[a][i]); k++;}};
+    
+    i=0;   
+    while (i<k-1&&fl==true)
+    {
+        j=i+1; 
+        while (j<k&&fl==true)
+            if (arr[i]==arr[j]) fl=false; 
+                else j++; 
+        i++; 
+    }; 
+    return fl;  
+}
+    
+bool Vert(int b, vector<vector<char>>& x)
+{
+    int i,k,j; 
+    bool fl; 
+    vector <int> arr(1); 
+    
+    fl=true; k=0;
+    
+    for(i=0;i<9;i++)
+        {if (x[i][b]!='.') {if (k==0) arr[0]=x[i][b];
+                              else arr.push_back(x[i][b]); k++;}};
+    
+        i=0;
+    while (i<k-1&&fl==true)
+    {
+        j=i+1; 
+        while (j<k&&fl==true)
+            if (arr[i]==arr[j]) fl=false; 
+                else j++; 
+        i++; 
+    }; 
+    return fl;  
+}
+    
+    bool isValidSudoku(vector<vector<char>>& board) {
+        int i,j; 
+        bool fl; 
+        
+        i=0; fl=true; j=0; 
+         
+        while(i<9&&fl==true)
+         {fl=Line(i,board); i++;}; printf("%d",fl); printf("%d\n",i);
+        
+        while (j<9&&fl==true)
+          {fl=Vert(j,board); j++;};  printf("%d",fl); printf("%d",j);
+        
+        i=0;
+        while(i<9&&fl==true)
+        {
+            j=0;
+            while (j<9&&fl==true)
+            {
+                fl=Square(i,j,board); 
+                j+=3;
+            };
+            i+=3; 
+        };
+        
+        return fl; 
+    }
+};
