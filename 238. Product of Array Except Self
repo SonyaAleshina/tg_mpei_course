@@ -1,0 +1,25 @@
+//https://leetcode.com/problems/product-of-array-except-self/
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int n,i,p,k;
+        bool fl;
+        
+        n=nums.size();
+        p=1; fl=true; k=0;
+         
+        for (i=0;i<n;i++)
+            if (nums[i]!=0) p*=nums[i];
+              else {fl=false;  k++;};
+        
+        if (fl==false)
+        {if (k==1) {for(i=0;i<n;i++) if (nums[i]!=0) nums[i]=0;
+                                      else nums[i]=p;}
+          else for(i=0;i<n;i++) nums[i]=0;}
+        else {
+        for (i=0;i<n;i++)
+            nums[i]=p/nums[i];};
+        
+        return nums;
+    }
+};
