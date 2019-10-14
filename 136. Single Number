@@ -1,0 +1,19 @@
+//https://leetcode.com/problems/single-number/
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int n,k,i;
+        
+        n=nums.size(); 
+        
+        k=nums[0]; 
+        
+        for(i=1;i<n;i++)
+        {
+            k=k^nums[i];
+        };
+        
+        return k; 
+
+    }
+};
