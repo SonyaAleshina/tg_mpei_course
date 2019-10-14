@@ -1,0 +1,23 @@
+//https://leetcode.com/problems/self-dividing-numbers/
+class Solution {
+public:
+    vector<int> selfDividingNumbers(int left, int right) {
+        int i,k,n,j; 
+        bool fl; 
+        vector <int> mas(0); 
+        
+        for (i=left;i<=right; i++)
+        {
+            k=i; fl=true; 
+            vector<int> dop(0); 
+            while (k>0&&fl==true)
+            {
+                dop.push_back(k%10);
+                if (k%10==0||i%(k%10)!=0) fl=false; 
+                k=k/10; 
+            };
+            if (fl!=false) mas.push_back(i); 
+        };
+        return mas; 
+    }
+};
