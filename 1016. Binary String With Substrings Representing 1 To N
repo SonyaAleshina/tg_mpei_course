@@ -1,0 +1,52 @@
+//https://leetcode.com/problems/binary-string-with-substrings-representing-1-to-n/
+class Solution {
+public:
+    
+    bool queryString(string S, int N) {
+        int m,i,j,k,x,n,l;
+        bool fl; 
+        string s1; 
+        char c;
+        char *pos; 
+        
+        x=1;
+        
+        fl=true; 
+        
+        while (x<=N&&fl==true) 
+        {  
+        l=x;
+        while(l>0) {
+        s1 = (l & 1) ? '1' + s1 : '0' + s1;
+        l >>= 1;
+        };
+         
+        m=s1.length(); n=S.length(); 
+        char s2[m+1];
+        char s[n+1];
+            
+            s2[m]='\0'; s[n]='\0'; 
+            
+        for (i=0;i<m;i++)
+            s2[i]=s1[i]; 
+        
+        for (i=0;i<n;i++)
+            s[i]=S[i]; 
+            
+          pos =  strstr(s,s2);
+            
+         if(pos==NULL) fl=false; 
+         x++; 
+        
+        for(i=0; i<m;i++) 
+            printf("%c",s1[i]); 
+        printf("\n"); 
+        
+        s1.erase(0,m); 
+        }; 
+        
+        return fl; 
+        
+        
+    } 
+};
