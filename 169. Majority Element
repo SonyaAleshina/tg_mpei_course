@@ -1,0 +1,58 @@
+//https://leetcode.com/problems/majority-element/
+class Solution {
+public:
+    void quickSort(vector<int> &x, int left, int right)
+{
+  int c; 
+  int l_hold = left; 
+  int r_hold = right; 
+  c = x[left];
+  while (left < right) 
+  {
+    while ((x[right] >= c)&&(left < right))
+      right--; 
+    if (left != right) 
+    {
+      x[left] = x[right]; 
+      left++; 
+    }
+    while ((x[left] <= c) && (left < right))
+      left++; 
+    if (left != right) 
+    {
+      x[right] = x[left]; 
+      right--; 
+    }
+  }
+  x[left] = c; 
+  c = left;
+  left = l_hold;
+  right = r_hold;
+  if (left < c) 
+    quickSort(x, left, c - 1);
+  if (right > c)
+    quickSort(x, c + 1, right);
+}
+    
+    int majorityElement(vector<int>& nums) {
+        int n,i,k,m; 
+        
+        n=nums.size(); 
+        bool fl=true; 
+        i=0;
+        while (fl==true&&i<n-1)
+            if (nums[i]<=nums[i+1]) i++; 
+                else fl=false; 
+         if (fl==false)
+        quickSort(nums,0,n-1);
+        
+        k=n/2; 
+        
+        m=nums[k]; printf("%d\n",m); 
+        for (i=0;i<n;i++)
+            printf("%d\n",nums[i]); 
+        
+        return m; 
+
+    }
+};
