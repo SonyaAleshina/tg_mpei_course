@@ -1,0 +1,30 @@
+//https://leetcode.com/problems/binary-tree-right-side-view/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void Mas(TreeNode* x, int k,vector<int> &mas)
+    {
+        int n=mas.size(); 
+        if (k==n) mas.push_back(x->val); 
+         k++;
+        if (x->right!=nullptr) Mas(x->right,k,mas); 
+        if (x->left!=nullptr) Mas(x->left,k,mas); 
+    }
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> R(0);
+        int i=0; 
+        
+    if (root!=nullptr)  
+         Mas(root,i,R); 
+                
+    return R; }
+        
+};
