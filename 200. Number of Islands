@@ -1,0 +1,48 @@
+//https://leetcode.com/problems/number-of-islands/
+class Solution {
+public:
+void Ostrov(vector<vector<char>>& mas,int i, int j)
+{
+    if (mas[i][j]=='1') 
+    {mas[i][j]='0'; 
+    if (i-1>=0) Ostrov(mas,i-1,j); 
+    if (j-1>=0) Ostrov(mas,i,j-1); 
+    if (i+1<mas.size()) Ostrov(mas,i+1,j); 
+    if (j+1<mas[i].size()) Ostrov(mas,i,j+1);  
+    }
+}
+bool Prov(vector<vector<char>> mas, int &i,int &j)
+{
+    bool fl=true; 
+    while (i<mas.size()&&fl==true)
+    {
+        j=0;
+        while (j<mas[i].size()&&fl==true)
+            if (mas[i][j]=='1') fl=false; 
+              else j++; 
+        if (fl==true) i++; 
+    }
+    return fl; 
+}
+    int numIslands(vector<vector<char>>& grid) {
+        int n,k,m; 
+        bool fl1; 
+        
+        if (grid.size()==0||grid[0].size()==0) return 0; 
+        else 
+        {
+           k=0; 
+           int i=0; int j=0; 
+           fl1=Prov(grid,i,j); 
+
+            while (fl1==false)
+            {
+                k++;
+                Ostrov(grid,i,j);
+                i=0; j=0;
+                fl1=Prov(grid,i,j);
+            }
+          return k;  
+        }
+    }
+};
