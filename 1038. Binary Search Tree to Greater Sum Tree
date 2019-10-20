@@ -1,0 +1,53 @@
+//https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Mas(vector<int> &x, TreeNode* tree)
+{
+   if (tree->left!=nullptr) Mas(x,tree->left); 
+   x.push_back(tree->val); 
+   if (tree->right!=nullptr) Mas(x,tree->right); 
+}
+void TreeSum(vector<int> x,TreeNode* &tree, int &i)
+{
+   if (tree->left!=nullptr) TreeSum(x,tree->left,i); 
+   tree->val=x[i]; i++;
+   if (tree->right!=nullptr) TreeSum(x,tree->right,i);     
+}
+
+    TreeNode* bstToGst(TreeNode* root) {
+       vector<int> dop(0); 
+        int i, sum, k,k1; 
+       if (root==nullptr) return root;
+        else 
+        {
+            Mas(dop,root);
+
+            sum=0; 
+            for (i=0;i<dop.size();i++)
+                sum+=dop[i]; 
+            
+            k=dop[0]; dop[0]=sum; 
+            
+            for(i=1;i<dop.size();i++)
+            {k1=dop[i];
+             dop[i]=sum-k;
+             sum=sum-k;
+             k=k1;};
+            
+
+            i=0; 
+            TreeSum(dop,root,i); 
+                
+            return root; 
+        }
+    }
+};
