@@ -1,0 +1,62 @@
+//https://leetcode.com/problems/check-completeness-of-a-binary-tree/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+
+void Prov(TreeNode* tree, int i, vector<int> &x,int j)
+{int k;
+
+    if (j+1==i) {if (tree->left!=nullptr) {k=1; x.push_back(k);} 
+                    else {k=0; x.push_back(k); };
+                 if (tree->right!=nullptr) {k=1; x.push_back(k); }
+                    else {k=0; x.push_back(k); }}
+    else 
+    {if (tree->left!=nullptr) Prov(tree->left, i,x,j+1);
+     if (tree->right!=nullptr) Prov(tree->right, i,x,j+1); 
+    }
+}
+
+void DepthLeft(TreeNode* tree, int &i)
+{
+    int i1=i; 
+    if (tree->left!=nullptr) {i++; DepthLeft(tree->left,i);};
+    if (tree->right!=nullptr) {i1++; DepthLeft(tree->right,i1);};
+    i=max(i,i1);
+}
+void DepthRight(TreeNode* tr, int &i)
+{
+    int i1=i;  
+    if (tr->right!=nullptr) {i++; DepthRight(tr->right,i);};
+    if (tr->left!=nullptr)  {i1++; DepthRight(tr->left,i1);}
+    i=max(i,i1); 
+}
+    bool isCompleteTree(TreeNode* root) {
+        if (root->left==nullptr&&root->right==nullptr) return true; 
+        else {
+        int d=0; int d1=0; 
+        if (root->left!=nullptr) {d=1; DepthLeft(root->left,d);}
+        if (root->right!=nullptr) {d1=1; DepthRight(root->right,d1);}
+         if (d1>d) return false; 
+            else {
+        vector<int> dop(0); 
+        Prov(root,d,dop,0); 
+        bool fl=true; int i=1;
+        int k=dop[0]; 
+
+        int s=pow(2,d); 
+        if (s!=dop.size()) fl=false; 
+            else {
+        while (fl==true&&i<dop.size())
+        {if (k==0&&dop[i]==1) fl=false; 
+           else {k=dop[i]; i++; }}}
+        return fl; }}
+    };
+};
