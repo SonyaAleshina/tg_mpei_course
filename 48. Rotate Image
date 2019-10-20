@@ -1,0 +1,38 @@
+//https://leetcode.com/problems/rotate-image/
+class Solution {
+public:
+void Square(vector<vector<int>>& mas,int &k1,int &i,int &j)
+{
+    int t=mas.size()-1-i;
+    int k=mas[j][t];
+    mas[j][t]=k1;
+    k1=k; 
+    i=j;j=t; 
+    
+}
+    void rotate(vector<vector<int>>& matrix) {
+        int i,j,t,l;
+        int n=matrix.size();
+        if (n%2==0) 
+        {
+            for(i=0;i<n/2;i++)
+                for(j=0;j<n/2;j++)
+            {
+                  int k1=matrix[i][j]; 
+                  t=i; l=j; 
+                  for(int h=0;h<4;h++)
+                  Square(matrix,k1,t,l);
+            }}
+         else {
+              for(i=0;i<n/2;i++)
+                for(j=0;j<n/2+1;j++)
+            {
+                  int k1=matrix[i][j]; 
+                  t=i; l=j; 
+                  for(int h=0;h<4;h++)
+                  Square(matrix,k1,t,l);
+            }
+         }
+            
+    }
+};
