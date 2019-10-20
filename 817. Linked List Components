@@ -1,0 +1,40 @@
+//https://leetcode.com/problems/linked-list-components/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+void Prov(ListNode* list,int &k, bool x[10000])
+{
+ while (list!=nullptr)
+ {
+     if (x[list->val]==true) 
+     {k++; 
+     while (list!=nullptr&&x[list->val]==true) list=list->next; }
+      else list=list->next; 
+     
+ }
+}
+public:
+    int numComponents(ListNode* head, vector<int>& G) {
+        if (head->next==nullptr) return 1; 
+          else 
+          {
+              bool dop[10000]={false}; 
+                 int i=0; int j=0; 
+              while (j<G.size())
+              { 
+                  dop[G[j]]=true; 
+                  j++; 
+              }
+
+              int k=0; 
+              Prov(head,k,dop);
+              return k; 
+          }
+    }
+};
