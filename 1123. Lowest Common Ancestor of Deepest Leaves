@@ -1,0 +1,37 @@
+//https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Poisk(TreeNode* tree, TreeNode* &dop, bool &fl, int &i)
+{
+    int j=i; bool fl1=true; int i1=i; 
+    TreeNode* dop1=dop;
+    if (tree->left!=nullptr) {i++; Poisk(tree->left,dop,fl,i);}
+      else fl=false;
+    if (tree->right!=nullptr) {j++; Poisk(tree->right,dop1,fl1,j);}
+      else fl1=false; 
+        
+     if (i==j&&fl==false&&fl1==false) 
+     {if ((tree->left!=nullptr&&tree->right!=nullptr)||(tree->left==nullptr&&tree->right==nullptr)) dop=tree;} 
+      else {if (i>j&&fl==false) {if (tree->right==nullptr&&i-i1<=1) dop=tree->left;}
+             else if (j>i&&fl1==false) {if (tree->left==nullptr&&j-i1<=1) dop=tree->right;}};
+    
+    if (i<j) dop=dop1;    i=max(i,j);
+    
+}
+    TreeNode* lcaDeepestLeaves(TreeNode* root) {
+        TreeNode* x = new TreeNode(0); 
+        bool fl=true; int i = 0; 
+        Poisk(root,x,fl,i); 
+        
+        return x;
+    }
+};
