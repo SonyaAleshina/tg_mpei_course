@@ -1,0 +1,61 @@
+//https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Mas(vector<int> x, TreeNode* tree, vector<int> &a, vector<int> &b)
+{
+    int i=1; 
+    while (i<x.size()&&x[i]<x[0])
+     {a.push_back(x[i]); i++;}
+    while (i<x.size())
+    {b.push_back(x[i]); i++;}
+}
+
+void CreateLeft(vector<int> x, TreeNode* &tree)
+{
+  TreeNode* dop = new TreeNode(x[0]);
+  tree->left=dop; 
+  vector<int> a(0); vector<int> b(0);
+  if (x.size()!=0) Mas(x,tree->left, a,b); 
+  dop=tree;
+  if (a.size()!=0) CreateLeft(a,tree->left);
+  if (b.size()!=0) CreateRight(b,dop->left);  
+}
+
+void CreateRight(vector<int> x, TreeNode* &tree)
+{
+  TreeNode* dop = new TreeNode(x[0]);
+  tree->right=dop; 
+  vector<int> a(0); vector<int> b(0);
+  if (x.size()!=0) Mas(x,tree->right, a,b);
+  dop=tree; 
+    printf("%d ", a.size()); 
+  if (a.size()!=0) CreateLeft(a,tree->right);
+  if (b.size()!=0) CreateRight(b,dop->right);  
+}
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+         TreeNode* root = new TreeNode(preorder[0]); 
+         if (preorder.size()==1) return root; 
+        else 
+          {
+         vector<int> l(0); 
+         vector<int> r(0); 
+
+       Mas(preorder, root, l,r); 
+            
+       if (l.size()!=0) CreateLeft(l,root); 
+       if (r.size()!=0) CreateRight(r,root); 
+            
+            TreeNode* root1 = new TreeNode(preorder[0]); 
+        
+       return root; } 
+   }
+};
