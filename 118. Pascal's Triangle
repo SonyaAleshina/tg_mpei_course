@@ -1,0 +1,34 @@
+//https://leetcode.com/problems/pascals-triangle/
+class Solution {
+public:
+void Line(vector<int> x, int k, vector<int> &y)
+{
+    int i;
+    y.push_back(1); 
+    for(i=1; i<k-1;i++)
+    {
+        y.push_back(x[i-1]+x[i]); 
+    }; 
+    y.push_back(1); 
+}
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> Treg(0); 
+        int i; 
+        
+        if (numRows==0) return Treg; 
+        else {
+        vector<int> mas = {1}; 
+        
+        Treg.push_back(mas); 
+        
+        for(i=1;i<numRows;i++) 
+        {
+            vector<int> Level(0); 
+            Line(Treg[i-1],i+1,Level); 
+            Treg.push_back(Level); 
+        };
+            
+            return Treg; 
+    };
+    }
+};
