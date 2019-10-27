@@ -1,0 +1,46 @@
+//https://leetcode.com/problems/set-matrix-zeroes/
+class Solution {
+public:
+void Stroka(vector<vector<int>>& x,int i)
+{
+    for (int j=0; j<x[i].size(); j++)
+      if (x[i][j]!=0) x[i][j]=0;
+}
+void Stolb(vector<vector<int>>& x,int j)
+{
+    for (int i=0; i<x.size(); i++)
+       { 
+        if (x[i][j]!=0) x[i][j]=0;}
+}
+    void setZeroes(vector<vector<int>>& matrix) {
+        int i=0; 
+        int j; 
+        vector<vector<int>> zero(0); 
+        
+        
+        while(i<matrix.size())
+        {
+            j=0; 
+            while(j<matrix[i].size())
+            { 
+                vector<int> dop(0);
+                if (matrix[i][j]==0) {dop.push_back(i); dop.push_back(j);} 
+                if (dop.size()!=0) zero.push_back(dop); 
+                j++; 
+            }
+            i++; 
+        }
+        
+        if (zero.size()!=0) 
+        {
+          for (i=0;i<zero.size();i++)
+          {
+            int v=zero[i][0]; 
+            int z=zero[i][1];  
+            if (matrix.size()!=1) Stolb(matrix,z);
+              printf("%d ", matrix.size()); 
+            if (matrix[v].size()!=1) Stroka(matrix,v);   
+          }
+        }
+    }
+};
