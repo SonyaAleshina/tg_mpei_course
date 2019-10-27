@@ -1,0 +1,43 @@
+//https://leetcode.com/problems/middle-of-the-linked-list/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Kolvo(ListNode* list, int &n)
+{
+    ListNode* dop = list; 
+    while (dop->next!=nullptr)
+    {
+        n++; 
+        dop=dop->next; 
+    }
+}
+    
+void Middle(ListNode* &list, int m)
+{
+    int i=0; 
+    while (i!=m)
+    {
+        i++; 
+        list=list->next; 
+    }
+}
+    ListNode* middleNode(ListNode* head) {
+        if (head->next==nullptr) return head; 
+         else 
+         {
+            int n=1; 
+            Kolvo(head,n);
+            int mid=0;
+             mid=n/2; 
+             Middle(head,mid); 
+             return head; 
+         }
+    }
+};
