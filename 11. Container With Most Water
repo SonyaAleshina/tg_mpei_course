@@ -1,0 +1,23 @@
+//https://leetcode.com/problems/container-with-most-water/
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int i,j; 
+        i=0; j=height.size()-1; 
+        
+        int max=0; 
+        
+        while (i<j)
+        {
+            int h=min(height[i],height[j]);
+            int x=j-i; 
+            if (h*x>max) max = h*x; 
+            
+            if (height[i]<height[j])  i++; 
+                else j--; 
+            printf("%d ", max);
+        }
+        
+        return max; 
+    }
+};
