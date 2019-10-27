@@ -1,0 +1,28 @@
+//https://leetcode.com/problems/unique-paths/
+class Solution {
+public:
+void Fact(int i, int &k)
+{
+    for (int j=1; j<=i; j++)
+        k=k*j; 
+}
+    //задача С из (m+n-2) по (n-1)
+    int uniquePaths(int m, int n) {
+
+        int i1,i; 
+        long long s=1; 
+        int k=1; 
+
+        int t=1;
+        
+        if (n-1>m-1) {k=m-1; i1=n;  Fact(m-1,t); }
+          else {k=n-1; i1=m; Fact(n-1,t); };
+        
+        for (i=i1;i<=m+n-2;i++)
+            s=s*i;
+        s/=t;
+
+        return s; 
+        
+    }
+};
