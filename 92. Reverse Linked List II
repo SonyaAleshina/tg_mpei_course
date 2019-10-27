@@ -1,0 +1,77 @@
+//https://leetcode.com/problems/reverse-linked-list-ii/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Reverse(ListNode* &list, int m, int n, int i)
+{
+  if (i<m) 
+  {
+      i++; Reverse(list->next,m,n,i); 
+  }
+   else {if (i==m)
+          {
+            ListNode* dop = list; 
+            int k=list->val; 
+            while (i!=n)
+            {dop=dop->next; i++;}
+
+            ListNode* y = dop->next;
+            ListNode* x = new ListNode(dop->val);
+            int j=1;
+            Change(list,x,j,n-m); 
+
+            x=x->next; 
+            list->val=dop->val; 
+            End(x,y);  
+            list->next=x;
+          }}
+    
+}
+
+void Change(ListNode* list,ListNode* &dop,int &i, int k)
+{
+    
+    if (i!=k)  {i++; Change(list->next, dop, i,k); }
+    ListNode* x = new ListNode(list->val); 
+
+    End(dop,x); 
+    printf("%d ", x->val) ;
+    
+}
+void Delete(ListNode* &list, int k, int i)
+{ 
+
+    if (i==k) list=nullptr; 
+     else {i++; Delete(list->next,k,i);}
+
+    
+}
+void End(ListNode* &list,ListNode* dop)
+{
+    if (list->next!=nullptr) End(list->next, dop); 
+     else list->next=dop;
+}
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        if (head->next==nullptr||m==n) return head; 
+          else 
+          {
+              if (head->next->next==nullptr) 
+              {
+                  int t=head->val; 
+                  head->val=head->next->val; 
+                  head->next->val = t; 
+                  return head; 
+              }
+              else 
+              {Reverse(head,m,n,1); 
+              return head; }
+          }
+    }
+};
