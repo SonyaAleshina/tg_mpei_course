@@ -1,0 +1,32 @@
+//https://leetcode.com/problems/path-sum-ii/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Sum(TreeNode* tree,vector<vector<int>> &x, int s, vector<int> dop, int sum)
+{
+  s+=tree->val; 
+  dop.push_back(tree->val); 
+  vector<int> dop1=dop; 
+   if (s==sum&&tree->right==nullptr&&tree->left==nullptr) x.push_back(dop);  
+  if (tree->left!=nullptr) {Sum(tree->left,x, s,dop,sum);}; 
+  if (tree->right!=nullptr) {Sum(tree->right,x, s, dop1, sum); }
+}
+    vector<vector<int>> pathSum(TreeNode* root, int sum) {
+        vector<vector<int>> mas(0); 
+        if (root==nullptr) return mas; 
+        else 
+        {
+            vector<int> y(0); 
+            Sum(root,mas,0,y,sum); 
+            return mas; 
+        }
+    }
+};
