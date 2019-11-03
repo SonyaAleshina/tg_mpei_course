@@ -1,0 +1,20 @@
+//https://leetcode.com/problems/lexicographical-numbers/
+class Solution {
+public:
+    vector<int> lexicalOrder(int n) {
+        vector<string> x(n);
+        vector<int> y(0); 
+        
+        for (int i=0; i<n;i++) x[i]=to_string(i+1); 
+        
+        sort(x.begin(),x.end()); 
+        
+        for (int i=0;i<n; i++)
+        {
+            int k=stoi(x[i]); 
+            y.push_back(k); 
+        }
+        
+          return y; 
+    }
+};
