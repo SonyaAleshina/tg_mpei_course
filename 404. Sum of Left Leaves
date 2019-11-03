@@ -1,0 +1,27 @@
+//https://leetcode.com/problems/sum-of-left-leaves/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Sum(TreeNode* tree, int &s, int k)
+{
+     if (tree->left==nullptr&&tree->right==nullptr) {if (k==1) s+=tree->val; }
+    if (tree->left!=nullptr) Sum(tree->left,s,1); 
+    if (tree->right!=nullptr) Sum(tree->right,s,0); 
+}
+    int sumOfLeftLeaves(TreeNode* root) {
+        if (root==nullptr) return 0; 
+        int sum=0; 
+    if (root->left!=nullptr) Sum(root->left,sum,1); 
+    if (root->right!=nullptr) Sum(root->right,sum,0); 
+        
+        return sum;
+    }
+};
