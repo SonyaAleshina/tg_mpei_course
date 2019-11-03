@@ -1,0 +1,23 @@
+//https://leetcode.com/problems/longest-increasing-subsequence/
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        if (nums.size()==0||nums.size()==1) return nums.size(); 
+        else
+        {vector<int> x(1); 
+        x[0]=nums[0];
+         int c;
+        
+        for(int i=1; i<nums.size(); i++)
+        {
+            c=lower_bound(x.begin(),x.end(),nums[i])-x.begin(); 
+            if (c==x.size()) x.push_back(nums[i]); 
+              else x[c]=nums[i]; 
+            for(int i=0; i<x.size(); i++)
+            printf("%d ", x[i]);
+            printf("\n"); 
+        }
+         return x.size(); 
+        }
+    }
+};
