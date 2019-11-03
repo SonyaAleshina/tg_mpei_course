@@ -1,0 +1,31 @@
+//https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Level(TreeNode* tree, int i,vector<vector<int>> &mas,int k)
+{
+    vector<int> x(0); 
+    if (mas.size()<=i) mas.push_back(x); 
+    
+    if (i%2==1) mas[i].push_back(tree->val);
+    else mas[i].insert(mas[i].begin(), tree->val); 
+
+    if (tree->right!=nullptr) Level(tree->right, i+1, mas,1);
+    if (tree->left!=nullptr) Level(tree->left, i+1, mas,0);
+}
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> x(0);
+     
+        if (root!=nullptr) 
+          Level(root,0,x,1); 
+        return x; 
+    }
+};
