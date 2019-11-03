@@ -1,0 +1,50 @@
+//https://leetcode.com/problems/sum-root-to-leaf-numbers/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Chislo(TreeNode* tree, vector<int> mas,vector<vector<int>> &dop)
+{
+    mas.push_back(tree->val); printf("%d ", tree->val); 
+    vector<int> mas1 = mas; 
+    if (tree->left==nullptr&&tree->right==nullptr) dop.push_back(mas); 
+    else 
+    {if (tree->left!=nullptr) Chislo(tree->left, mas,dop);
+     if (tree->right!=nullptr) Chislo(tree->right, mas1, dop);}
+    
+}
+void Convert(vector<vector<int>> dop, int &sum)
+{
+  for (int i=0; i<dop.size(); i++)
+  { 
+      int s=0; int k=dop[i].size()-1; 
+      for (int j=0; j<dop[i].size(); j++)
+      {s+=pow(10,k)*dop[i][j]; 
+       k--;}
+      sum+=s; 
+  }
+}
+    int sumNumbers(TreeNode* root) {
+      if (root==nullptr) return 0; 
+         else {if (root->left==nullptr&&root->right==nullptr) return root->val; 
+                 else 
+                 {
+                    vector<vector<int>> x(0);
+                     vector<int> dop(0); 
+                     Chislo(root,dop,x); 
+
+                     int summa=0; 
+                     
+                     Convert(x,summa); 
+                     
+                     return summa; 
+                 }}
+    }
+};
