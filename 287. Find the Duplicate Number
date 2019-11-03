@@ -1,0 +1,20 @@
+//https://leetcode.com/problems/find-the-duplicate-number/
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+   vector<bool> x(nums.size()); 
+        int k=0; int i;
+    for (i=0; i<nums.size(); i++)
+    {
+        x[i]=false;
+    }
+   i=0; 
+    while (k==0)
+    {
+        if (x[nums[i]-1]==false) x[nums[i]-1]=true; 
+          else k=nums[i]; 
+        i++; 
+    }
+        return k;
+    }
+};
