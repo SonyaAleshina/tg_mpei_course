@@ -1,0 +1,27 @@
+//https://leetcode.com/problems/k-th-symbol-in-grammar/
+class Solution {
+public:
+    int kthGrammar(int N, int K) { 
+        int i=K; int n=N; 
+        vector<int> x(0); 
+        x.push_back(K); 
+        int c=0; 
+        while (i!=1)
+        {
+            x.push_back(i/2+i%2); 
+            n--; i=i/2+i%2; 
+        }
+        sort(x.begin(), x.end()); 
+        for (int i=0; i<x.size(); i++)
+            printf("%d ", x[i]); 
+        for (int i=1; i<x.size(); i++)
+        {
+          if (c==0) {if (x[i]%2==0) c=1;
+                       else c=0;}
+            else {if (x[i]%2==0) c=0;
+                    else  c=1;}
+        }
+        
+        return c; 
+    }
+};
