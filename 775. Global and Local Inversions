@@ -1,0 +1,22 @@
+//https://leetcode.com/problems/global-and-local-inversions/
+class Solution {
+public:
+    bool isIdealPermutation(vector<int>& A) {
+        if (A.size()==1||A.size()==2) return true; 
+        
+        bool fl=true; int i=2; 
+        
+        int c=A[0]; 
+        
+        while (i<A.size()&&fl==true)
+        {
+            if (c>A[i]) fl=false; 
+              else { c=max(c, A[i-1]); 
+                     i++; } 
+           
+        }
+        
+        return fl; 
+        
+    }
+};
