@@ -1,0 +1,44 @@
+//https://leetcode.com/problems/sort-an-array/
+class Solution {
+public:
+void Quick (vector<int> &nums, int l, int r)
+{
+        
+       int k=(l+r)/2;
+           
+        int first=l; int last=r;  
+           
+       int m=nums[k]; 
+        
+        do
+        {
+            while (nums[l]<m) l++; 
+            
+            while (nums[r]>m) r--; 
+            
+            if (l<=r) 
+            {
+                int t=nums[l];
+                nums[l]=nums[r]; 
+                nums[r]=t; 
+                l++; r--; 
+            }
+            
+        }
+    while (l<r);
+
+    if (l<last) Quick(nums, l, last);
+    if (first<r) Quick(nums, first, r);
+    
+}
+    vector<int> sortArray(vector<int>& nums) {
+        
+        int i=0; int j=nums.size()-1; 
+
+        
+        Quick(nums, i, j); 
+        
+        return nums;
+    }
+};
+
