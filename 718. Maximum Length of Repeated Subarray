@@ -1,0 +1,37 @@
+//https://leetcode.com/problems/maximum-length-of-repeated-subarray/
+class Solution {
+public:
+    int findLength(vector<int>& A, vector<int>& B) {
+        set<int> s;
+        for (int i=0; i<B.size(); i++)
+            s.insert(B[i]);
+        int k=0; int i=0; bool fl1=true; 
+        
+        while (i<A.size()&&fl1==true)
+        {if (s.find(A[i])!=s.end())
+            {
+                int j=0;   bool fl=true; 
+                while (j<B.size()&&fl==true)
+                {
+                    fl=false;
+                    
+                    while (fl==false&&j<B.size()) {if (B[j]!=A[i]) j++; 
+                                                     else fl=true; }
+                    
+                    if (fl==true)
+                    {int t=1; j++; 
+                    while (fl==true&&i+t<A.size()&&j<B.size())
+                       if (B[j]==A[i+t]) {j++; t++;}
+                          else fl=false; 
+                     
+                    if (t>k) k=t; 
+                     j=j-t+1;
+                     if (k+i>=A.size()||k+j>=B.size()) fl=false; 
+                      else fl=true;}
+                }
+            }
+         if (k==A.size()||k==B.size()) fl1=false; 
+         i++;}
+        return k; 
+    }
+};
