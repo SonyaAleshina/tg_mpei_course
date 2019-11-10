@@ -1,0 +1,40 @@
+//https://leetcode.com/problems/find-largest-value-in-each-tree-row/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Form(TreeNode* tree, vector<int> &x, int k)
+{
+    if (k>x.size()) {x.push_back(tree->val); 
+                     int k1=k+1; 
+                     if (tree->left!=nullptr) Form(tree->left, x, k1); 
+                     if (tree->right!=nullptr) Form(tree->right, x, k1); }
+    else 
+    {
+        if (x[k-1]<tree->val) x[k-1]=tree->val; 
+            int k1=k+1; 
+            if (tree->left!=nullptr) Form(tree->left, x, k1); 
+            if (tree->right!=nullptr) Form(tree->right, x, k1); 
+    }
+}
+    vector<int> largestValues(TreeNode* root) {
+        vector<int> dop(0); 
+        if (root==nullptr) return dop; 
+        else 
+        {
+            dop.push_back(root->val); 
+            int k=2; 
+            if (root->left!=nullptr) Form(root->left, dop, k); 
+            if (root->right!=nullptr) Form(root->right, dop, k); 
+            
+            return dop; 
+        }
+    }
+};
