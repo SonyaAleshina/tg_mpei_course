@@ -1,0 +1,37 @@
+//https://leetcode.com/problems/top-k-frequent-words/
+class Solution {
+public:
+    struct predicate
+{
+bool operator ()( const std::pair<int, string> &left, const std::pair<int, string> &right ) const
+{
+  if (left.first == right.first) return (left.second > right.second);
+      else 
+    return (left.first < right.first );
+}
+};
+    
+    vector<string> topKFrequent(vector<string>& words, int k) {
+        vector<pair<int,string>> x(0); 
+        
+        set<string> s; 
+        
+        for (int i=0; i<words.size(); i++)
+        {   pair<int, string> p;
+          if (s.find(words[i])==s.end()) {s.insert(words[i]);
+            p = make_pair(1, words[i]); 
+            for (int j=0; j<words.size(); j++)
+                if (i!=j&&words[i]==words[j]) p.first+=1; 
+            x.push_back(p); }
+        }
+        
+        sort(x.begin(), x.end(),predicate()); 
+        
+        vector<string> dop(0); 
+        
+        for (int i=0; i<k; i++)
+            dop.push_back(x[x.size()-1-i].second);
+        
+        return dop;
+    }
+};
