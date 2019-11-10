@@ -1,0 +1,21 @@
+//https://leetcode.com/problems/maximize-sum-of-array-after-k-negations/
+class Solution {
+public:
+    int largestSumAfterKNegations(vector<int>& A, int K) {
+        int i=1; 
+            sort(A.begin(), A.end()); 
+            int j=0; bool fl=true; 
+            while (fl==true&&i<=K&&j<A.size()) {A[j]*=-1; i++; j++; if (j==A.size()) fl=false;
+                                                                    else if (A[j]>=0) fl=false;}
+            
+            if (i<=K) {sort(A.begin(), A.end());
+                       if (A[0]!=0) {while (i<=K) {A[0]*=-1; i++;}}}; 
+            
+            int s=0; 
+            for (j=0; j<A.size(); j++)
+              s+=A[j]; 
+                       
+            return s; 
+            
+    }
+};
