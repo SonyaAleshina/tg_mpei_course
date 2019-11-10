@@ -1,0 +1,77 @@
+//https://leetcode.com/problems/maximum-width-of-binary-tree/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void WildLeft(TreeNode* tree, vector<vector<int>> &x, int k, int w)
+{
+    if (x.size()<k) {vector<int> y(0);
+                     y.push_back(w); 
+                     x.push_back(y);}
+    else 
+    {
+        x[k-1].push_back(w); }
+        int k1=k+1; 
+        if (tree->left!=nullptr) WildLeft(tree->left, x,k1, w*2-1);
+        if (tree->right!=nullptr) WildLeft(tree->right, x, k1, w*2);
+    
+}
+void WildRight(TreeNode* tree, vector<vector<int>> &x, int k, unsigned long int w)
+{
+    if (x.size()<k) {vector<int> y(0);
+                     y.push_back(w); 
+                     x.push_back(y);}
+    else 
+    {
+        x[k-1].push_back(w); }
+        int k1=k+1; 
+        if (tree->left!=nullptr) WildRight(tree->left, x, k1, ((w-1)*2+1)); 
+        if (tree->right!=nullptr) WildRight(tree->right, x, k1, w*2); 
+    
+}
+    int widthOfBinaryTree(TreeNode* root) {
+        if (root==nullptr) return 0; 
+        if (root->left==nullptr&&root->right==nullptr) return 1;
+        
+        vector<int> x(0); 
+        vector<vector<int>> dop(0);
+        dop.push_back(x);
+        if (root->left!=nullptr) WildLeft(root->left, dop, 1, 1);  
+         else dop[0].push_back(0); 
+        if (root->right!=nullptr) WildRight(root->right, dop, 1,2);
+          else dop[0].push_back(0); 
+        
+        vector <int> y(0); 
+        for(int i=0; i<dop.size();i++)
+        {
+            int j=0;
+            while (j!=dop[i].size()-1&&dop[i][j]==0) j++; 
+             if (j!=dop[i].size()-1)
+             {int c=dop[i][j]; 
+              int k=j; 
+              j=dop[i].size()-1; 
+              while (j!=k&&dop[i][j]==0) j--; 
+              if (j!=k) {int b=dop[i][j]; 
+                         y.push_back(b-c+1);}}
+        }
+        
+        int d;
+             
+        if (y.size()==0) d=1; 
+        else 
+        { d=y[0];
+        for (int i=1; i<y.size(); i++)
+            if (y[i]>d) d=y[i]; }
+        
+        
+        return d; 
+        
+    }
+};
