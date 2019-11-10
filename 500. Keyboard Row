@@ -1,0 +1,37 @@
+//https://leetcode.com/problems/keyboard-row/
+class Solution {
+public:
+    vector<string> findWords(vector<string>& words) {   	
+set <char> s1{'q','w','e','r','t','y','u','i','o','p','Q','W','E','R','T','Y','U','I','O','P'};
+      set <char> s2{'a','s','d','f','g','h','j','k','l','A','S','D','F','G','H','J','K','L'}; 
+      set <char> s3{'z','x','c','v','b','n','m','Z','X','C','V','B','N','M'}; 
+        
+        int i, j;
+        vector <string> str(0); 
+        
+        for(i=0;i<words.size();i++)
+           {j=0; bool fl=true; 
+            if (s1.find(words[i][j])!=s1.end()) 
+            {
+                while (j<words[i].length()&&fl==true)
+                if (s1.find(words[i][j])!=s1.end()) j++;
+                  else fl=false;
+            }
+            else
+            { if (s2.find(words[i][j])!=s2.end()) 
+            {
+                while (j<words[i].length()&&fl==true)
+                if (s2.find(words[i][j])!=s2.end()) j++; 
+                  else fl=false; printf("%d ", j);
+            }
+             else 
+            {
+                while (j<words[i].length()&&fl==true)
+                if (s3.find(words[i][j])!=s3.end()) j++;
+                  else fl=false;
+            }}
+           if (fl==true) str.push_back(words[i]); }
+        
+        return str; 
+    }
+};
