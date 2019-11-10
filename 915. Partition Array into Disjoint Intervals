@@ -1,0 +1,58 @@
+//https://leetcode.com/problems/partition-array-into-disjoint-intervals/
+class Solution {
+public:
+    int partitionDisjoint(vector<int>& A) {
+        if (A.size()==2) return 1; 
+
+        bool fl=false; 
+        int n;           
+        int k=0; 
+        vector<int> x(0); 
+
+        auto iter = x.cbegin(); 
+        x.insert(iter, A.begin(), A.begin()+1); 
+        
+        
+
+        vector<int> y(0);
+
+        iter = y.cbegin(); 
+        y.insert(iter, A.begin()+1, A.end());
+        
+        
+        while (fl==false)
+        {
+           if (k==0) 
+           {
+            sort(y.begin(),y.end()); 
+            
+            if (x[k]<=y[0]) fl=true; 
+             else {k++; while (x[0]>y[k]) k++; }
+ 
+                   x.clear(); 
+
+                   y.clear(); 
+            }
+            
+            else 
+            {
+
+               auto iter1 = x.cbegin(); 
+               x.insert(iter1, A.begin(), A.begin()+k+1); 
+ 
+               auto iter2 = y.cbegin(); 
+
+               y.insert(iter2, A.begin()+k+1, A.end());  
+
+            sort(x.begin(),x.end()); 
+            sort(y.begin(),y.end()); 
+            
+            
+            if (x[k]<=y[0]) fl=true; 
+             else {int j=1; k++; while (x[x.size()-1]>y[j]) {k++;j++;} }
+            x.clear(); y.clear();}
+        }
+        
+        return k+1; 
+    }
+};
