@@ -1,0 +1,28 @@
+//https://leetcode.com/problems/maximum-width-ramp/
+class Solution {
+public:
+    int maxWidthRamp(vector<int>& A) {
+
+        vector<pair<int,int>> x(0);
+        
+        for (int i=0; i<A.size(); i++)
+        {
+            pair<int, int> p;
+            p = make_pair (A[i], i);
+            x.push_back(p); 
+        }
+        
+        sort(x.begin(), x.end()); 
+        
+        int w=0;
+        int min=x[0].second;
+        
+        for (int i=1; i<A.size(); i++)
+        {
+            if (x[i].second-min>w) w=x[i].second-min;
+            if (x[i].second<min) min = x[i].second; 
+        }
+        
+        return w; 
+    }
+};
