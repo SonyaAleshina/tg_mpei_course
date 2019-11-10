@@ -1,0 +1,55 @@
+//https://leetcode.com/problems/cousins-in-binary-tree/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Check1(TreeNode* tree, int d, int &k, int x, int y, vector<vector<int>> &dop)
+{
+    if (tree->val!=x&&tree->val!=y)
+    {d++; k++; 
+     if (tree->left!=0) Check1(tree->left, d, k, x,y, dop);
+     k++; 
+     if (tree->right!=0) Check1(tree->right, d, k,x,y, dop);}
+    else 
+         {vector<int> s(2); 
+          s[1]=k; s[0]=d;
+          dop.push_back(s);}
+}
+void  Check2(TreeNode* tree, int d, int &k, int x, int y, vector<vector<int>> &dop)
+{
+    if (tree->val!=x&&tree->val!=y)
+    {d++; k--; 
+     if (tree->left!=0) Check2(tree->left, d, k, x, y, dop);
+     k--; 
+     if (tree->right!=0) Check2(tree->right, d, k, x, y, dop);}
+    else 
+         {vector<int> s(2); 
+          s[1]=k; s[0]=d; printf("%d %d ", d, k);
+          dop.push_back(s);}
+}
+    bool isCousins(TreeNode* root, int x, int y) {
+        if (root->val==x||root->val==y) return false; 
+        int d=0; int k=0; 
+        vector<vector<int>> dop(0); 
+        if (root->left!=nullptr) Check1(root->left, d, k, x,y, dop);
+ 
+        k=0;
+        if (root->right!=nullptr) Check2(root->right, d, k, x, y, dop); 
+        
+        if (dop.size()!=2) return false; 
+        if (dop[1][0]==dop[0][0]) { 
+                                    if (dop[0][1]==0&&dop[1][1]==0) return false; 
+                                    if ((dop[0][1]*dop[1][1])<0) return true;
+                                    if (abs(abs(dop[0][1])-abs(dop[1][1]))!=1) return true; 
+                                       else return false; 
+                                   }
+         else  return false; 
+    }
+};
