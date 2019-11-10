@@ -1,0 +1,56 @@
+//https://leetcode.com/problems/asteroid-collision/
+class Solution {
+public:
+bool Check(vector<int> x, int i)
+{
+    if (x.size()==0) return true; 
+   bool fl=true; bool fl1=true; 
+    while (fl1==true&&i<x.size()) {if (x[i]<0) i++;
+                                  else fl1=false; } 
+    while (i<x.size()&&fl==true)
+      if (x[i]>0) i++; 
+        else fl=false; 
+    return fl;
+}
+
+void Aster(vector<int> &x, vector<int> dop, int i)
+{
+        if (Check(dop,i)==false)
+        {while (dop[i]<0) {x.push_back(dop[i]); i++;}
+          int c=dop[i];                
+            if (i+1<dop.size()) 
+                   if (dop[i+1]>0) x.push_back(dop[i]);  
+            int d; 
+          i++; 
+          if (dop[i]>0) 
+              while (dop[i]>0&&i<dop.size()) 
+              {c=dop[i]; 
+               if (i+1<dop.size()) 
+                   if (dop[i+1]>0) x.push_back(dop[i]);  
+               i++;}
+            
+          if (i<dop.size()) if (dop[i]<0) 
+                          {d=dop[i];
+                           if (abs(d)>c) x.push_back(d);
+                            else if (c>abs(d)) x.push_back(c); 
+                           i++;  
+                           if (i<dop.size()) Aster(x,dop,i);}}
+    else for (int j=i; j<dop.size(); j++)
+                            x.push_back(dop[j]);
+}
+
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+        
+        if (Check(asteroids,0)==true) return asteroids; 
+        else
+        {while (Check(asteroids,0)==false)
+         {
+            int i=0; vector<int> x(0); 
+            Aster(x,asteroids,i); 
+            asteroids=x; 
+         }
+        
+        return asteroids;}
+        
+    }
+};
