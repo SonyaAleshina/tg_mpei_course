@@ -1,0 +1,26 @@
+//https://leetcode.com/problems/univalued-binary-tree/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Check (TreeNode* tree, int c, bool &fl)
+{
+    if (tree->val!=c) fl=false;
+        else
+        {if (tree->left!=0) Check(tree->left, c, fl); 
+         if (tree->right!=0) Check(tree->right, c, fl);} 
+}
+    bool isUnivalTree(TreeNode* root) {
+        int c = root->val; 
+        bool fl=true; 
+        Check(root,c,fl); 
+        return fl; 
+    }
+};
