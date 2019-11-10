@@ -1,0 +1,31 @@
+//https://leetcode.com/problems/monotonic-array/
+class Solution {
+public:
+bool Increase (vector<int> A, int i)
+{
+    bool fl=true; 
+    while (i<A.size()&& fl==true)
+        if (A[i]>=A[i-1]) i++; 
+           else fl=false; 
+    return fl; 
+}
+bool Decrease (vector<int> A, int i)
+{
+    bool fl=true; 
+    while (i<A.size()&& fl==true)
+        if (A[i]<=A[i-1]) i++; 
+           else fl=false; 
+    return fl;  
+}
+    bool isMonotonic(vector<int>& A) {
+        if (A.size()==1) return true; 
+        int i=1; bool fl=true; 
+        while (fl==true) {if (A[i]==A[i-1]) i++; 
+                            else fl=false; 
+                          if (i>A.size()-1) fl=false;}
+        if (i>A.size()-1) return true; 
+        else
+        {if (A[i]<A[i-1]) return Decrease(A,i); 
+           else return Increase(A,i); }
+    }
+};
