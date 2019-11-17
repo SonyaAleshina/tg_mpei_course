@@ -1,0 +1,44 @@
+//https://leetcode.com/problems/bitwise-and-of-numbers-range/
+class Solution {
+public:
+void Power(int &s, int &p, int m, int n)
+{
+    s=pow(2,p);
+    while (s<=n) {p++; s=pow(2,p);}
+    s=pow(2,p-1); 
+}
+void Dop(int &s, int &p, int m, int n, int s1)
+{
+    int c = m-s1;
+    int b = n-s1; 
+    p=0; 
+    Power(s1, p, c, b); 
+    if (c-s1>=0) 
+      {s+=s1;  Dop(s,p,c,b,s1);} 
+    else {if (c-s1==0) s+=s1;}
+}
+    int rangeBitwiseAnd(int m, int n) {
+        if (m==0) return 0;
+        if (m==2147483647) return m; 
+        
+        if (n-m>1000000000) return 0; 
+        
+        if (m==n) return m; 
+        if (n-m==1) return n&m; 
+        if (n-m==2) return (m&(m+1)&n); 
+        int p=0;
+        int s;
+
+        Power(s,p,m,n);
+        if (s>=m)  return m&s; 
+          else 
+          {
+              if (n%2==1) n--;
+              if (n-m==2) return (m&(m+1)&n); 
+              Dop(s,p,m,n,s); 
+              return s;
+  
+
+          }
+    }
+};
