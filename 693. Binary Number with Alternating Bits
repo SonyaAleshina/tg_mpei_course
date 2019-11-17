@@ -1,0 +1,23 @@
+//https://leetcode.com/problems/binary-number-with-alternating-bits/
+class Solution {
+public:
+bool Check(int n)
+{
+    int c;
+    if ((n&1)==1) c=0;
+      else c=1;
+    n>>=1; 
+    bool fl=true; 
+    while (fl==true&&n>0)
+    {
+        if (c==1) {if ((n&1)==1) {n>>=1; c=0; }
+                     else fl=false;}
+         else {if ((n&1)==0) {n>>=1; c=1; }
+                     else fl=false;}}
+    
+    return fl; 
+}
+    bool hasAlternatingBits(int n) {
+        return Check(n); 
+    }
+};
