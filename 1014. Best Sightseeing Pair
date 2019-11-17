@@ -1,0 +1,17 @@
+//https://leetcode.com/problems/best-sightseeing-pair/
+class Solution {
+public:
+    int maxScoreSightseeingPair(vector<int>& A) {
+        
+        int b = A[0]+A[1]-1; 
+        int c = max(A[0]-2, A[1]-1);
+        
+        for (int i=2; i<A.size(); i++)
+        {
+            printf ("%d ", b); b = max(b, c+A[i]); 
+            c = max(c-1, A[i]-1); 
+        }
+        
+        return b;
+    }
+};
