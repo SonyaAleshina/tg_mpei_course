@@ -1,0 +1,31 @@
+//https://leetcode.com/problems/valid-mountain-array/
+class Solution {
+public:
+bool Up(vector<int> x, int &c)
+{
+    bool fl=true; 
+    while (c<x.size()&&fl==true)
+        if (x[c]>x[c-1]) c++; 
+          else {if (x[c]==x[c-1]) fl=false; 
+                 else break;} 
+
+    if (c==x.size()) return false; 
+    
+    if (fl!=false)
+    {while (c<x.size()&&fl==true)
+        if (x[c]<x[c-1]) c++; 
+              else fl=false; }
+    
+    return fl; 
+
+}
+    bool validMountainArray(vector<int>& A) {
+        if (A.size()<3) return false;
+        bool fl=true; 
+        int i=0; int c=0; 
+        if (A[0]<A[1]) {c++; 
+                        fl=Up(A,c);}
+                else fl=false;
+        return fl; 
+    } 
+};
