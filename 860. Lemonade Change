@@ -1,0 +1,31 @@
+//https://leetcode.com/problems/lemonade-change/
+class Solution {
+public:
+    bool lemonadeChange(vector<int>& bills) {
+        vector<int> x(3);
+        for (int j=0; j<3; j++)
+            x[j]=0; 
+        int i=0;
+        bool fl=true;
+        while (i<bills.size()&&fl==true)
+          {
+           if (bills[i]==5) x[0]+=1;
+           if (bills[i]==10) 
+              {
+               if (x[0]!=0) {x[0]--; x[1]++;}
+                  else fl=false;
+              }
+           if (bills[i]==20) 
+          {
+          if(x[1]!=0&&x[0]!=0||x[0]>=3) {x[2]++;
+          if (x[1]!=0) {x[0]--; x[1]--;}
+            else x[0]-=3;
+          }
+            else fl=false;
+          }
+          i++;
+          }
+        
+        return fl;
+    }
+};
