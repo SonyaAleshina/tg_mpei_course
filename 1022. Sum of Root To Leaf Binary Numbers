@@ -1,0 +1,49 @@
+//https://leetcode.com/problems/sum-of-root-to-leaf-binary-numbers/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Path(TreeNode* tree, int &d, int &s, int k, vector<int> &x)
+{
+    int d1=d; int k1=k+1; 
+    if (tree->left!=nullptr) {d++; Path(tree->left, d,s, k1, x);}
+    
+        if (x.size()!=0) {if (tree->val==1)  
+                         for (int i=0; i<x.size(); i++) 
+                            s+=pow(2,x[i]-k); 
+                         if (k==1) x.erase(x.begin(), x.end());}
+    
+    vector<int> y(0);
+
+    if (tree->right!=nullptr) {d1++; Path(tree->right, d1,s, k1, y);}
+    
+        if (y.size()!=0) {if (tree->val==1)  
+                         for (int i=0; i<y.size(); i++) 
+                            s+=pow(2,y[i]-k); 
+                         if (k==1) y.erase(y.begin(), y.end());}
+    
+    for(int j=0; j<y.size(); j++)
+        x.push_back(y[j]); 
+
+    
+    if (tree->left==nullptr&&tree->right==nullptr) 
+         {x.push_back(d); 
+          if (tree->val==1) s+=pow(2,d-k);}
+    
+}
+    int sumRootToLeaf(TreeNode* root) {
+        int sum=0; 
+        int d=1; 
+        vector<int> x(0); 
+        Path(root, d,sum, 1, x); 
+        
+        return sum; 
+    }
+};
