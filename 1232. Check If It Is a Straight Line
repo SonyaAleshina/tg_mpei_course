@@ -1,0 +1,28 @@
+//https://leetcode.com/problems/check-if-it-is-a-straight-line/
+class Solution {
+public:
+    bool checkStraightLine(vector<vector<int>>& coordinates) {
+        double k, c; 
+        if (coordinates.size()==2) return true; 
+        
+        int x1=coordinates[0][0]; int y1=coordinates[0][1];
+        int x2=coordinates[1][0]; int y2=coordinates[1][1];
+        
+        int i=2; 
+        
+        if (x2-x1 == 0) 
+            while (x2-x1 == 0 && i<coordinates.size()) 
+            {x2=coordinates[i][0]; y2=coordinates[i][1]; i++; }
+
+        k=(y2-y1)/(x2-x1); 
+        
+        c = y1-k*x1; 
+        
+        if (i==coordinates.size()) {x1=coordinates[i-2][0];  y1=coordinates[i-2][1];}
+         else 
+         {x1=coordinates[i][0];  y1=coordinates[2][1];}
+        
+        if (k*x1+c == y1) return true; 
+          else return false; 
+    }
+};
