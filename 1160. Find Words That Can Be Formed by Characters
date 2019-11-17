@@ -1,0 +1,33 @@
+//https://leetcode.com/problems/find-words-that-can-be-formed-by-characters/
+class Solution {
+public:
+    int countCharacters(vector<string>& words, string chars) {
+     multiset<int> s; 
+        
+     for (int i=0; i<chars.length(); i++)
+         s.insert(chars[i]); 
+        
+        int k=0; 
+        
+     for(int i=0; i<words.size(); i++)
+     {
+         multiset<int> dop = s; 
+         int j=0; bool fl=true; 
+         while (j<words[i]. size()&&fl==true)
+         {
+             if (dop.find(words[i][j])==dop.end()) fl=false; 
+             else 
+             {
+                 if (dop.count(words[i][j])<2) dop.erase(words[i][j]); 
+                   else {int n=dop.count(words[i][j]);
+                         dop.erase(words[i][j]); 
+                         for (int t=0; t<n-1; t++) 
+                           dop.insert(words[i][j]);}
+                 j++; 
+             }
+         }
+          if (fl==true) k+=words[i].length(); 
+     }
+        return k; 
+    }
+};
