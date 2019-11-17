@@ -1,0 +1,44 @@
+//https://leetcode.com/problems/toeplitz-matrix/
+class Solution {
+public:
+    bool isToeplitzMatrix(vector<vector<int>>& matrix) {
+        if (matrix.size()==1||matrix[0].size()==1) return true; 
+        bool fl=true; 
+        int n=matrix.size(); 
+        int m=matrix[0].size();
+        
+        int z1=1; int z2=-1; 
+        int i; int j=0; 
+        
+        while (j<m&&fl==true)
+        {
+            i=0; int c=matrix[i][j]; int k=j+1; i++; 
+            while (fl==true&&i<n&&k<m)
+            {
+                if (c==matrix[i][k]) {i++; k++;}
+                  else fl=false; 
+            }
+            j++; 
+        }
+        
+        if (fl==false) return fl; 
+        
+        i=1; 
+        
+        while (i<n&&fl==true)
+        {
+            j=0; int c=matrix[i][j]; int k=i+1; j++; 
+            while (j<m&&fl==true&&k<n)
+            {
+                if (c==matrix[k][j]) {j++; k++;}
+                  else fl=false; 
+            }
+            i++; 
+        }
+        
+        return fl; 
+        
+    }
+};
+
+     
