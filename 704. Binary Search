@@ -1,0 +1,25 @@
+//https://leetcode.com/problems/binary-search/
+class Solution {
+public:
+void Poisk(vector<int> x, int t, int i, int j, int &k)
+{
+    if (i+1==j) {if (x[i]==t) k=i;
+                  else if (x[i+1]==t) k=i+1;}
+    else 
+    {int m=(i+j)/2; 
+    if (x[m]==t) k=m; 
+    else {
+           if (x[m]>t&&m!=i) Poisk(x,t,i,m,k); 
+              else if (m!=j) Poisk(x,t,m,j,k); 
+         }}
+}
+    int search(vector<int>& nums, int target) {
+        int k=-1; 
+        if (nums[0]==nums[nums.size()-1]&&nums[0]!=target) return -1; 
+        if (nums[nums.size()-1]<target) return -1; 
+        if (nums.size()==1&&nums[0]==target) return 0;
+        Poisk(nums, target, 0, nums.size()-1, k); 
+        
+        return k; 
+    }
+};
