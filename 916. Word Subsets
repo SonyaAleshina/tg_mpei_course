@@ -1,0 +1,30 @@
+//https://leetcode.com/problems/word-subsets/
+class Solution {
+public:
+    vector<string> wordSubsets(vector<string>& A, vector<string>& B) {
+        vector<string> x(0); 
+        for (int i=1; i<B.size(); i++)
+        {
+            int j=0; 
+            string dop = B[0]; 
+            while (j<B[i].length())
+            { int c = dop.find(B[i].substr(j,1));
+                    if (c ==-1) {B[0]+=B[i].substr(j,1);}
+                  else {dop.erase(c,1); }
+            j++;}
+        }
+        for (int i=0; i<A.size(); i++)
+        {
+            bool fl=true; 
+            
+            string dop = A[i]; int t=0;
+            while (fl==true&&t<B[0].length())
+                { int c = dop.find(B[0].substr(t,1));
+                    if (c ==-1) fl=false; 
+                  else {dop.erase(c,1); t++; }}
+
+            if (fl==true) x.push_back(A[i]); 
+        }
+        return x; 
+    }
+};
