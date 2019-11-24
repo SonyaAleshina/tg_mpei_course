@@ -1,0 +1,39 @@
+//https://leetcode.com/problems/insert-into-a-binary-search-tree/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Insert(TreeNode* &tree, int val)
+{
+    if (val<tree->val) 
+    {
+        if (tree->left != nullptr) Insert(tree->left, val); 
+        else {
+              TreeNode* dop = new TreeNode(val); 
+              tree->left = dop; 
+             }
+    }
+    else 
+    {
+        if (tree->right !=nullptr) Insert(tree->right, val); 
+        else {
+               TreeNode* dop = new TreeNode(val); 
+                tree->right = dop; 
+             }
+    }
+}
+    TreeNode* insertIntoBST(TreeNode* root, int val) {
+        if (root == nullptr) {TreeNode* dop = new TreeNode(val); 
+                              return dop;}
+        Insert(root, val); 
+        
+        return root; 
+    }
+};
