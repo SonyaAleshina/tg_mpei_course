@@ -1,0 +1,24 @@
+//https://leetcode.com/problems/find-common-characters/
+class Solution {
+public:
+    vector<string> commonChars(vector<string>& A) {
+        vector<string> x; 
+        for (int i=0; i<A[0].size(); i++)
+            x.push_back(A[0].substr(i,1)); 
+        int i=1; 
+        while(i<A.size()&&!x.empty())
+        {
+            int j=0; 
+        while(j<x.size())
+        {
+            int c = A[i].find(x[j],0);
+            if (c!=-1) 
+            {A[i].erase(c, 1); j++; }
+            else x.erase(x.begin()+j); 
+        } 
+            i++;
+        }
+
+        return x; 
+    }
+};
