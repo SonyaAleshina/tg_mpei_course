@@ -1,0 +1,32 @@
+//https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+TreeNode* Poisk(TreeNode* tree, TreeNode* p, TreeNode* q, bool &fl, TreeNode* &k)
+{
+    if (tree==p||tree==q) return tree; 
+    TreeNode* p1 = NULL; 
+    TreeNode* q1 = NULL; 
+    if (tree->left!=nullptr) p1=Poisk(tree->left, p, q, fl,k);  
+    if (tree->right!=nullptr) q1=Poisk(tree->right, p, q, fl,k);
+    if (fl==false)
+    {if ((p1==p||p1==q)&&(q1==p||q1==q)) {fl=true; k = tree; return tree;}
+      else if (p1==p||p1==q) return p1; 
+              else  return q1; }
+     else return k; 
+    
+}
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        bool fl=false; 
+        TreeNode* k=NULL; 
+        return Poisk(root,p,q, fl, k); 
+    }
+};
