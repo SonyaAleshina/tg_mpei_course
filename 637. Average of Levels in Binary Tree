@@ -1,0 +1,44 @@
+//https://leetcode.com/problems/average-of-levels-in-binary-tree/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Levels(TreeNode* tree, vector<vector<int>> &x, int k)
+{
+    if (x.size()<k) {vector<int> y(0);
+                     y.push_back(tree->val); 
+                     x.push_back(y);}
+    else 
+    {
+      x[k-1].push_back(tree->val);    
+    }
+    int k1=k+1; 
+    if (tree->left!=nullptr) Levels(tree->left, x, k+1); 
+    if (tree->right!=nullptr) Levels(tree->right, x, k1); 
+}
+double Average(vector<int> x)
+{
+    double s=0; 
+    for (int i=0; i<x.size(); i++)
+        s+=x[i]; 
+    return (s/x.size()); 
+}
+    vector<double> averageOfLevels(TreeNode* root) {
+        vector<vector<int>> x(0); 
+        vector<double> y(0); 
+        if (root==nullptr) {y.push_back(0); return y;}
+        Levels(root, x, 1); 
+        for (int i=0; i<x.size(); i++)
+        {
+            y.push_back(Average(x[i])); 
+        }
+        return y; 
+    }
+};
