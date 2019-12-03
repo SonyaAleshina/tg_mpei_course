@@ -1,0 +1,21 @@
+//https://leetcode.com/problems/majority-element-ii/
+class Solution {
+public:
+    vector<int> majorityElement(vector<int>& nums) {
+        int k = nums.size()/3; 
+        sort(nums.begin(), nums.end()); 
+        vector<int> x(0); 
+        int i=0; 
+        while (i+k<nums.size())
+        {
+            if (nums[i]==nums[i+k]) x.push_back(nums[i]); 
+            int c=nums[i]; 
+            bool fl=true; 
+            while (fl==true) {if (nums[i]==c) i++; 
+                               else fl=false; 
+                              if (i>=nums.size()) fl=false;}
+            
+        }
+        return x; 
+    }
+};
