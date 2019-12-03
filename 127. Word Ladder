@@ -1,0 +1,54 @@
+//https://leetcode.com/problems/word-ladder/
+class Solution {
+public:
+int Difference(string s1, string s2)
+{
+    int k=0; 
+    for (int i=0; i<s1.length(); i++)
+        if (s1[i]!=s2[i]) k++; 
+    return k; 
+}
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        
+        unordered_map<string, vector<string>> grid; 
+        unordered_map<string, int> visit, level; 
+        
+        wordList.push_back(beginWord); 
+        
+        for (int i=0; i<wordList.size(); i++)
+          {for (int j=i+1; j<wordList.size(); j++)
+           { 
+              if (Difference(wordList[i], wordList[j])==1) 
+                       {
+                         grid[wordList[i]].push_back(wordList[j]); 
+                         grid[wordList[j]].push_back(wordList[i]); 
+                        }
+           }
+           visit[wordList[i]] = 0; }
+        
+        queue<string> BFS; 
+        
+        visit[beginWord] = 1; 
+        level[beginWord] = 1; 
+        BFS.push(beginWord); 
+        
+        while(!BFS.empty())
+        {
+            string str = BFS.front(); 
+            BFS.pop(); 
+            
+            if (Difference(str, endWord)==0) return level[str]; 
+            
+            for (int i=0; i<grid[str].size(); i++)
+            {
+                if (visit[grid[str][i]] == 0) {
+                                                BFS.push(grid[str][i]); 
+                                                visit[grid[str][i]] = 1; 
+                                                level[grid[str][i]] = level[str] + 1; 
+                                              }
+            } 
+        }
+        
+        return 0;
+    }
+};
