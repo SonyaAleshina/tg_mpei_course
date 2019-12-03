@@ -1,0 +1,26 @@
+//https://leetcode.com/problems/search-in-a-binary-search-tree/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+TreeNode* Search(TreeNode* tree, int k)
+{
+    if (tree->val==k) return tree; 
+    TreeNode* dop = NULL; 
+    if (tree->left!=nullptr) dop = Search(tree->left, k); 
+    if (dop==nullptr)
+    if (tree->right!=nullptr) dop =  Search(tree->right, k); 
+    return dop; 
+}
+    TreeNode* searchBST(TreeNode* root, int val) {
+        if (root==nullptr) return NULL; 
+        return Search(root, val); 
+    }
+};
