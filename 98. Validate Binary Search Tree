@@ -1,0 +1,60 @@
+//https://leetcode.com/problems/validate-binary-search-tree/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Check1(TreeNode* tree,bool &fl, int node)
+{
+    if (tree->left!=nullptr) 
+    
+    {if (tree->left->val<tree->val&&tree->left->val<node) Check1(tree->left, fl, node); 
+           else fl=false; }
+    
+    if (fl!=false)
+    {if (tree->right!=nullptr) 
+   
+    {if (tree->right->val>tree->val&&tree->right->val<node) 
+            Check1(tree->right,fl, node); 
+      else fl=false; }}
+}
+void Check2(TreeNode* tree, bool &fl, int node, int M,int k)
+{
+    if (tree->left!=nullptr) 
+    {if (tree->left->val<tree->val&&tree->left->val>node) 
+        Check2(tree->left, fl, node, max(M, tree->val),0); 
+           else fl=false; }
+    
+    if (fl!=false)
+    {if (tree->right!=nullptr)  
+    {if (k==0)
+     {if (tree->right->val>tree->val&&tree->right->val>node&&tree->right->val<M) 
+            Check2(tree->right,fl, node, max(M,tree->val),k); 
+      else fl=false; }  
+      else {if (tree->right->val>tree->val&&tree->right->val>node) 
+            Check2(tree->right,fl, node, max(M,tree->val),1);
+             else fl=false;}}}
+}
+    bool isValidBST(TreeNode* root) {
+        if (root==nullptr) return true; 
+        bool fl=true; 
+        if (root->left!=nullptr) 
+        {if (root->left->val<root->val) Check1(root->left, fl, root->val); 
+                else fl=false; }
+
+
+        if (fl)
+            if (root->right!=nullptr) 
+        {if (root->right->val>root->val) Check2(root->right, fl, root->val, root->right->val,1); 
+               else fl=false;}
+
+        return fl; 
+        
+    }
+};
