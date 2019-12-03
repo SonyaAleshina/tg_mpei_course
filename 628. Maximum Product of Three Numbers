@@ -1,0 +1,31 @@
+//https://leetcode.com/problems/maximum-product-of-three-numbers/
+class Solution {
+public:
+    int maximumProduct(vector<int>& nums) {
+        sort (nums.begin(), nums.end());
+        int k = 0; 
+        int n = nums.size();
+
+        bool fl=true; 
+        while (fl==true&&k<n) {if (nums[k]<0) k++; 
+                            else fl = false; }
+ 
+        if (k<2||k==n)
+        {
+            return (nums[n-1]*nums[n-2]*nums[n-3]);
+        }
+        else 
+        {
+            int p; 
+            if (nums[0]*nums[1]*nums[n-1]>nums[n-1]*nums[n-2]*nums[n-3]) 
+            {
+                return (nums[n-1]*nums[0]*nums[1]);
+            }
+            else 
+            {
+                return (nums[n-1]*nums[n-2]*nums[n-3]);
+            }
+        }
+            
+    }
+};
