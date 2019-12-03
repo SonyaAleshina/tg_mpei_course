@@ -1,0 +1,52 @@
+//https://leetcode.com/problems/construct-string-from-binary-tree/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+void Construct(TreeNode* tree, string &str)
+{
+    printf("%d ", abs(tree->val)); 
+    int k = abs(tree->val);
+    string c = To_str(k); 
+    //char c = k +48; printf("%c ", c); 
+    if (tree->val<0) str+='-'; 
+    str+=c;
+    bool fl=false; 
+    
+    if (tree->left==nullptr&&tree->right==nullptr) return; 
+    
+    if (tree->left==nullptr&&tree->right!=nullptr) str+="()";
+   
+    if (tree->left!=nullptr) {str+='('; fl=true; Construct(tree->left, str); }
+
+    if (fl==true) {str+=')'; fl=false;}
+    if (tree->right!=nullptr) {str+='('; fl=true; Construct(tree->right, str); }
+
+    if (fl==true) str+=')';
+}
+string To_str(int n)
+{
+    string s = "";
+    if (n==0) return s+=48; 
+    while (n>0)
+    {
+        s.insert(s.begin(), n%10+48); 
+        n/=10; 
+    }
+    return s; 
+}
+    string tree2str(TreeNode* t) {
+        string s=""; 
+        if (t==nullptr) return s; 
+        Construct(t, s); 
+        
+        return s; 
+    }
+};
