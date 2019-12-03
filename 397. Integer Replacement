@@ -1,0 +1,38 @@
+//https://leetcode.com/problems/integer-replacement/
+class Solution {
+public:
+long long int  Check(int n, bool &fl)
+{ 
+    int k=0; 
+    while (n%2==0)
+    {n/=2; k++;}
+    if (n==1) fl=true;
+    return k;
+}
+    int integerReplacement(int n) {
+        int k=0;
+        if (n==2147483647) return 32; 
+        while (n!=1)
+        {
+            if (n%2==0) {n=n/2; k++;}
+              else 
+            {
+            if (n-1==1) n--;
+                  else
+            {int k1=0;  int k2=0; 
+             bool fl1=false; bool fl2=false; 
+            k1=Check(n+1,fl1); 
+            k2=Check(n-1,fl2); 
+            if (fl1==true&&k1<k2||fl1==true&&fl2==false) n++; 
+            else 
+            {if (fl2==true) n--; 
+             else
+             {if (k1>k2) n++; 
+              else n--; }
+             }}
+              k++; }
+        }
+
+        return k; 
+    }
+};
