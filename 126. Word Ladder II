@@ -1,0 +1,93 @@
+//https://leetcode.com/problems/word-ladder-ii/
+class Solution {
+private:
+unordered_map<string,unordered_set<string>> grid; 
+vector<vector<string>> dop;
+unordered_map<string, int> level;
+public:
+int Difference(string s1, string s2)
+{
+    int k=0; 
+    for (int i=0; i<s1.length(); i++)
+        if (s1[i]!=s2[i]) k++; 
+    return k; 
+}
+
+    
+void DFS(string str,vector<string> &x,unordered_set<string> &visit,string end)
+{
+    if (str == end)
+    {
+        dop.push_back(x);
+        return; 
+    }
+    
+    
+    for(auto c: grid[str])
+    {
+        if (!visit.count(c)&&level[str]+1==level[c])
+        {
+            visit.insert(c);
+            x.push_back(c); 
+            DFS(c, x, visit, end);
+            x.pop_back(); 
+            visit.erase(visit.find(c)); 
+        }
+    }
+}
+
+    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
+        
+        wordList.push_back(beginWord); 
+        
+        for (int i=0; i<wordList.size(); i++)
+          {for (int j=i+1; j<wordList.size(); j++)
+           { 
+              if (Difference(wordList[i], wordList[j])==1) 
+                       {
+                         grid[wordList[i]].insert(wordList[j]); 
+                         grid[wordList[j]].insert(wordList[i]); 
+                        }
+           }
+          }
+        
+        unordered_set<string> visit;
+        visit.insert(beginWord); 
+        level[beginWord] = 0; 
+        
+        queue<string> q;
+        q.push(beginWord);
+
+        
+        while(!q.empty())
+        {
+            string s = q.front();
+            q.pop();
+            for(auto c: grid[s])
+            {
+                if (visit.count(c) == 0)
+                {
+                    visit.insert(c); 
+                    level[c] = level[s]+1; 
+                    q.push(c); 
+                }
+            }
+        }
+        
+        visit.clear();
+
+        
+        vector<string> x(0); 
+        x.push_back(beginWord); 
+        
+        for(auto c: grid[beginWord])
+        {
+            x.push_back(c); 
+            visit.insert(c); 
+            DFS(c, x, visit, endWord);
+            x.pop_back(); 
+        }
+        
+        return dop; 
+    }
+};
