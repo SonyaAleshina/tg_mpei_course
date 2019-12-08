@@ -1,0 +1,86 @@
+//https://leetcode.com/problems/shortest-path-with-alternating-colors/
+class Solution {
+public:
+    vector<int> shortestAlternatingPaths(int n, vector<vector<int>>& red_edges, vector<vector<int>>& blue_edges) {
+        map<int, vector<int>> red; 
+        map<int, vector<int>> blue; 
+        
+        for(auto &x: red_edges)
+            red[x[0]].push_back(x[1]);
+        
+        for(auto &x: blue_edges)
+            blue[x[0]].push_back(x[1]); 
+        
+
+        vector<int> r(n, -1); 
+        vector<int> b(n, -1); 
+        
+        queue<pair<int, int>> q; 
+        
+
+        q.push({0,0}); 
+        q.push({0,1}); 
+
+        q.push({-1,-1}); 
+        
+        int d = 0;
+        
+        while (!q.empty())
+        {
+            pair<int,int> p = q.front(); 
+            q.pop(); 
+            
+            int ind = p.first; 
+            int color = p.second; 
+            
+            if (ind == -1 ) 
+            {
+                if (!q.empty())
+                {
+                    d ++; 
+                    q.push({-1,-1}); 
+                }
+                continue;
+            }
+            
+            if (color == 1)
+            {
+                if (r[ind]!=-1)
+                    continue; 
+                else 
+                    r[ind] = d; 
+                
+                for(auto x: red[ind])
+                    q.push({x, 0}); 
+            }
+            else 
+            {
+                if (b[ind] != -1) 
+                    continue; 
+                else 
+                    b[ind] = d; 
+                
+                for (auto x:blue[ind])
+                    q.push({x, 1}); 
+            }
+        }
+        
+        vector<int> rast(n);
+        
+        for(int i=0; i<n; i++)
+        {
+            if (r[i] == -1)
+                rast[i] = b[i]; 
+            else 
+            {
+                if (b[i] == -1)
+                rast[i] = r[i];
+              else 
+                  rast[i] = min(b[i], r[i]);
+            }
+              
+        }
+        
+        return rast; 
+    }
+};
