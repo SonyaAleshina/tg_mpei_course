@@ -1,0 +1,50 @@
+//https://leetcode.com/problems/course-schedule-ii/
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<vector<int>> grid(numCourses); 
+        vector<int> usl(numCourses,0); 
+        
+        for (vector<int> &dop: prerequisites)
+        {
+            grid[dop[1]].push_back(dop[0]);
+            usl[dop[0]]+=1;
+        }
+        
+        queue<int> visit; 
+        vector<int> Order(0);
+        
+        for(int i=0; i<numCourses; i++)
+        {
+            if (usl[i]==0)
+            {
+                visit.push(i); 
+                Order.push_back(i); 
+            }
+        }
+        
+        while(!visit.empty())
+        {
+            if (numCourses == Order.size()) return Order; 
+            
+            int num = visit.front(); 
+            visit.pop(); 
+
+            vector<int> &dop = grid[num]; 
+            for (int i: dop)
+            {
+                --usl[i]; 
+                if (usl[i] == 0)
+                {
+                    visit.push(i); 
+                    Order.push_back(i); 
+                }
+                
+            }
+        }
+        
+        if (numCourses == Order.size()) return Order; 
+         else return {}; 
+            
+    }
+};
